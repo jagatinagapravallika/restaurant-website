@@ -1,164 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Italian Delights - Restaurant</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background:whitesmoke;
-        }
-        nav {
-            background-color:#e67e22;
-            padding: 15px;
-            text-align: center;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 20px;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        header {
-            text-align: center;
-            padding: 40px;
-            background: #f39c12;
-            color: white;
-        }
-        section {
-            padding: 20px;
-            display: none;
-        }
-        #home {
-            display: block;
-        }
-        .meal-card {
-            background: white;
-            padding: 15px;
-            margin: 10px;
-            border-radius: 8px;
-            box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
-            text-align: center;
-            max-width: 300px;
-            display: inline-block;
-        }
-        .meal-card img {
-            max-width: 100%;
-            border-radius: 8px;
-        }
-        .search-box {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        input {
-            padding: 8px;
-            width: 200px;
-        }
-        button {
-            padding: 8px 12px;
-            background: #d35400;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #e67e22;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Italian Delights - Restaurant</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <nav>
-        <a href="#home" onclick="showSection('home')">Home</a>
-        <a href="#about" onclick="showSection('about')">About</a>
-        <a href="#services" onclick="showSection('services')">Services</a>
-        <a href="#contact" onclick="showSection('contact')">Contact</a>
-    </nav>
+  <!-- Navigation -->
+  <nav style="background-color: var(--brand); padding: 15px; text-align: center; ">
+    <a href="#home" onclick="showSection('home')" style="color:white; margin:0 20px; font-weight:bold; text-decoration: none;">Home</a>
+    <a href="#about" onclick="showSection('about')" style="color:white; margin:0 20px; font-weight:bold; text-decoration: none;">About</a>
+    <a href="#services" onclick="showSection('services')" style="color:white; margin:0 20px; font-weight:bold; text-decoration: none;">Services</a>
+    <a href="#contact" onclick="showSection('contact')" style="color:white; margin:0 20px; font-weight:bold; text-decoration: none;">Contact</a>
+  </nav>
 
-    <header>
-        <h1>Italian Delights</h1>
-        <p>Where Taste Meets Tradition</p>
-    </header>
+  <!-- Header -->
+  <header class="app-header">
+    <h1>Italian Delights</h1>
+    <p>Where Taste Meets Tradition</p>
+  </header>
 
-    <!-- Home Section -->
-    <section id="home">
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Search for a dish...">
-            <button onclick="searchMeal()">Search</button>
+  <!-- Home Section -->
+  <section id="home">
+    <div class="search-bar">
+      <input id="searchInput" type="text" placeholder="Search for a dish..."/>
+      <button id="searchBtn">Search</button>
+      <button id="randomBtn" class="outline">Surprise Me 🎲</button>
+    </div>
+    <div id="statusArea" class="status"></div>
+
+    <!-- Grid of meals -->
+    <div id="results" class="grid"></div>
+
+    <!-- Template for a meal card -->
+    <template id="cardTemplate">
+      <article class="card">
+        <div class="card__image-wrap">
+          <img class="card__image" alt="" />
         </div>
-        <div id="mealResults"></div>
-    </section>
+        <div class="card__body">
+          <h3 class="card__title"></h3>
+          <p class="card__meta"></p>
+          <button class="card__btn">View Recipe</button>
+        </div>
+      </article>
+    </template>
+  </section>
 
-    <!-- About Section -->
-    <section id="about">
-        <h2>About Us</h2>
-        <p>Welcome to Italian Delights! We specialize in authentic Italian cuisine with recipes passed down for generations. Fresh ingredients, traditional methods, and love in every bite.</p>
-    </section>
+  <!-- About Section -->
+  <section id="about" style="display:none;">
+  <div style="max-width:1000px; margin:auto; padding:40px 20px;">
+    <h2 style="text-align:center; margin-bottom:20px;">About Us</h2>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px; align-items:center;">
+      <img src="https://images.unsplash.com/photo-1525610553991-2bede1a236e2" 
+           alt="Italian cuisine" 
+           style="width:100%; border-radius:var(--radius); box-shadow:var(--shadow);" />
+      <div>
+        <p style="font-size:1.1rem; line-height:1.6;">
+          At <strong>Italian Delights</strong>, we bring the heart of Italy to your plate. Our recipes are handed down through generations, prepared with fresh ingredients and traditional methods.
+        </p>
+        <p style="font-size:1.1rem; line-height:1.6;">
+          Whether you’re here for a romantic dinner, a family celebration, or a quick bite, we make every moment flavorful.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Services Section -->
-    <section id="services">
-        <h2>Our Services</h2>
-        <ul>
-            <li>🍽️ Dine-In Experience</li>
-            <li>🚗 Fast Food Delivery</li>
-            <li>🎉 Event Catering</li>
-        </ul>
-    </section>
+  <!-- Services Section -->
+  <section id="services" style="display:none;">
+  <div style="max-width:1000px; margin:auto; padding:40px 20px;">
+    <h2 style="text-align:center; margin-bottom:20px;">Our Services</h2>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
+      <div class="card" style="text-align:center; padding:20px;">
+        <div style="font-size:40px;">🍽️</div>
+        <h3>Dine-In Experience</h3>
+        <p>Enjoy our cozy atmosphere, impeccable service, and authentic Italian meals freshly prepared for you.</p>
+      </div>
+      <div class="card" style="text-align:center; padding:20px;">
+        <div style="font-size:40px;">🚗</div>
+        <h3>Fast Delivery</h3>
+        <p>Order your favorites online and get them delivered hot and fresh right to your doorstep.</p>
+      </div>
+      <div class="card" style="text-align:center; padding:20px;">
+        <div style="font-size:40px;">🎉</div>
+        <h3>Event Catering</h3>
+        <p>We cater to weddings, parties, and corporate events with a customized Italian menu.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Email: contact@italiandelights.com</p>
-        <p>Phone: +91 9876543210</p>
-    </section>
+  <!-- Contact Section -->
+  <section id="contact" style="display:none;">
+  <div style="max-width:800px; margin:auto; padding:40px 20px;">
+    <h2 style="text-align:center; margin-bottom:20px;">Contact Us</h2>
+    <div style="background:#fff; padding:20px; border-radius:var(--radius); box-shadow:var(--shadow);">
+      <p><strong>Email:</strong> contact@italiandelights.com</p>
+      <p><strong>Phone:</strong> +91 9876543210</p>
+      <p><strong>Address:</strong> 123, Food Street, Vijayawada</p>
+      <form style="margin-top:20px; display:grid; gap:12px;">
+        <input type="text" placeholder="Your Name" required 
+               style="padding:12px; border-radius:var(--radius); border:1px solid var(--border);">
+        <input type="email" placeholder="Your Email" required 
+               style="padding:12px; border-radius:var(--radius); border:1px solid var(--border);">
+        <textarea placeholder="Your Message" rows="4" required 
+                  style="padding:12px; border-radius:var(--radius); border:1px solid var(--border);"></textarea>
+        <button type="submit" style="padding:12px; border:none; border-radius:var(--radius); background:var(--brand); color:#fff;">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // Function to toggle sections
-        function showSection(sectionId) {
-            document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
-            document.getElementById(sectionId).style.display = 'block';
-        }
+  <!-- Recipe Modal -->
+  <div id="modal" class="modal hidden" aria-hidden="true">
+    <div id="modalBackdrop" class="modal__backdrop"></div>
+    <div class="modal__content">
+      <button id="modalClose" class="modal__close">✖</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
 
-        // Search Meal Function
-        async function searchMeal() {
-            let query = document.getElementById('searchInput').value.trim();
-            if (!query) {
-                alert("Please enter a dish name!");
-                return;
-            }
-            let url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`;
-            let res = await fetch(url);
-            let data = await res.json();
-            let meals = data.meals;
-
-            let resultsDiv = document.getElementById('mealResults');
-            resultsDiv.innerHTML = "";
-
-            if (meals) {
-                meals.forEach(meal => {
-                    let card = `
-                        <div class="meal-card">
-                            <h3>${meal.strMeal}</h3>
-                            <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-                            <p><b>Category:</b> ${meal.strCategory}</p>
-                            <p><b>Area:</b> ${meal.strArea}</p>
-                            <a href="${meal.strYoutube}" target="_blank">📺 Watch Recipe</a>
-                        </div>
-                    `;
-                    resultsDiv.innerHTML += card;
-                });
-            } else {
-                resultsDiv.innerHTML = "<p>No meals found. Try another search!</p>";
-            }
-        }
-    </script>
-
+  <script>
+    function showSection(id){
+      document.querySelectorAll("section").forEach(s => s.style.display = "none");
+      document.getElementById(id).style.display = "block";
+    }
+  </script>
+  <script src="web.js"></script>
 </body>
 </html>
