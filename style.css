@@ -20,10 +20,12 @@ body{
 
 .app-header{
   text-align:center;
-  padding:32px 16px 8px;
+  padding:45px ;
+  background-color: #f39c12;
+  color:#fff
 }
-.app-header h1{margin:0 0 6px;font-size:clamp(1.4rem,2.4vw,2rem)}
-.app-header p{margin:0;color:var(--muted)}
+.app-header h1{margin:0 0 15px;font-size:clamp(1.4rem,2.4vw,2rem)}
+.app-header p{margin:0;color:#fff}
 
 .search-bar{
   display:flex;
